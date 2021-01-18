@@ -15,7 +15,7 @@ const getQuestion = (key) => {
         question1: `Q1. Which of the following is a single global function defined in the jQuery library ?\n1. jQuery()\n2. $()\n3. Queryanalysis()\n4. None of the mentioned\n`,
         question2: `Q2. Which jQuery method is used to hide selected elements ?\n1. hidden()\n2. hide()\n3. visible(false)\n4. display(none)\n`,
         question3: `Q3. $.foo() is equivalent to ?\n1. javascript.foo()\n2. document.foo()\n3. jQuery.foo()\n4. None of the above\n`,
-        question4: `Q4. Which built-in method returns the character at the specified index??\n1. characterAt()\n2. getCharAt()\n3. charAt()\n4. None of the above\n`
+        question4: `Q4. Which built-in method returns the character at the specified index?\n1. characterAt()\n2. getCharAt()\n3. charAt()\n4. None of the above\n`
     }
     return questionBank[key];
 }
@@ -25,7 +25,7 @@ const start = () => {
     let usermarks = 0;
     for (let i = 1; i <= 4;) {
         const ans = readlineSync.question(getQuestion(`question${i}`));
-        if (parseInt(ans)) {
+        if (parseInt(ans) >= 1 && parseInt(ans) <= 4) {
             let validAns = parseInt(ans);
             if (validAns === getAnswer(`question${i}`)) {
                 usermarks += 5;

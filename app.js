@@ -1,45 +1,54 @@
 const readlineSync = require('readline-sync')
 
-const getAnswer = (key) => {
-    const answers = {
-        question1: 1,
-        question2: 2,
-        question3: 3,
-        question4: 3,
-    }
-    return answers[key];
-}
 
-const getQuestion = (key) => {
-    const questionBank = {
-        question1: `Q1. Which of the following is a single global function defined in the jQuery library ?\n1. jQuery()\n2. $()\n3. Queryanalysis()\n4. None of the mentioned\n`,
-        question2: `Q2. Which jQuery method is used to hide selected elements ?\n1. hidden()\n2. hide()\n3. visible(false)\n4. display(none)\n`,
-        question3: `Q3. $.foo() is equivalent to ?\n1. javascript.foo()\n2. document.foo()\n3. jQuery.foo()\n4. None of the above\n`,
-        question4: `Q4. Which built-in method returns the character at the specified index?\n1. characterAt()\n2. getCharAt()\n3. charAt()\n4. None of the above\n`
+const questions = [
+    {
+        question: "Q1. Which of the following is a single global function defined in the jQuery library ?",
+        options: ["jQuery()", "$()", "Queryanalysis()", "None of the mentioned"],
+        answer: 1
+    },
+    {
+        question: "Q2. Which jQuery method is used to hide selected elements ?",
+        options: ["hidden()", "visible(false)", "hide()", "display(none)"],
+        answer: 3
+    },
+    {
+        question: "Q3. $.foo() is equivalent to ?",
+        options: ["javascript.foo()", "document.foo()", "jQuery.foo()", "None of the mentioned"],
+        answer: 3
+    },
+    {
+        question: "Q4. Which built-in method returns the character at the specified index ?",
+        options: ["characterAt()", "getCharAt()", "charAt()", "None of the mentioned"],
+        answer: 3
     }
-    return questionBank[key];
-}
+]
 
-const start = () => {
-    const totalmarks = 20;
+function start() {
+    let totalmarks = 20;
     let usermarks = 0;
-    for (let i = 1; i <= 4;) {
-        const ans = readlineSync.question(getQuestion(`question${i}`));
-        if (parseInt(ans) >= 1 && parseInt(ans) <= 4) {
-            let validAns = parseInt(ans);
-            if (validAns === getAnswer(`question${i}`)) {
+    for (let i = 0; i < questions.length;) {
+        console.log(`${questions[i].question}`);
+        //questions[i].options.forEach(i => console.log(i + "\n"));
+        for (let option = 0; option < questions[i].options.length; option++) {
+            console.log(`${option + 1}. ${questions[i].options[option]}`);
+        }
+        let userinput = parseInt(readlineSync.question());
+        if (userinput >= 1 && userinput <= 4) {
+            if (userinput === questions[i].answer) {
+                console.log('Correct Answer\n');
                 usermarks += 5;
-                console.log(`Correct Answer\n`);
             } else {
-                console.log(`Wrong answer!\nCorrect option is ${getAnswer(`question${i}`)}\n`);
+                console.log(`Wrong answer, correct answer is ${questions[i].options[questions[i].answer - 1]}\n`);
             }
             i++;
         } else {
-            console.log('please choose valid option\n');
+            console.log('Please make valid choices between 1 to 4\n');
         }
     }
     console.log(`Quiz over.`);
     console.log(`You got ${usermarks} out of ${totalmarks}.`);
+
 }
 
 const name = readlineSync.question('What is your name ?\n');
